@@ -1,7 +1,12 @@
 import requests
 from bs4 import BeautifulSoup
-from typing import Union
 
+
+# Data Extractor è creato per rendere automatiche le operazioni di estrazione dati 
+# da cataloghi web. Le sue funzioni sono molto limitate ma renderà meno macchinose
+# le operazioni con Beautiful Soup. Basterà inserire l'url del catalogo, un prefisso
+# ed un range ed estrarrà le pagine desiderate. Utilizzando il find_all() di BeautifulSoup
+# sarà in grado di estrarre i dati desiderati restituendoli in una lista.
 
 class DataExtractor:
 
@@ -35,7 +40,7 @@ class DataExtractor:
         return True
 
     def data_ext(self, type: str, classes: list):
-        print(type, classes)
+        
         strings = []
         for req in self.pages:
             
@@ -51,71 +56,35 @@ class DataExtractor:
 
         return False  
 
+    
 
-
-"spf-product-card__price money"
 melluso_url = "https://www.melluso.com/it/melluso-donna/nuova-collezione.html"
 melluso_subfix = '?p='
 lumberjack_url = "https://www.lumberjack.com/it/campaign/woman?category=shoes"
 lumberjack_subfix = "&page="
 
+melluso_data= DataExtractor(melluso_url, melluso_subfix, 25)
+melluso_models = melluso_data.data_ext("a",["product-item-link"])
+melluso_prices = melluso_data.data_ext("span", ["price"])
 
-#melluso_data= DataExtractor(melluso_url, melluso_subfix, 3)
-#melluso_models = melluso_data.data_ext("a",["product-item-link"])
-#melluso_prices = melluso_data.data_ext("span", ["price"])
-#melluso_sizes = sorted(list(set(melluso_data.data_ext("div", "text"))))
-lumberjack_data = DataExtractor(lumberjack_url, lumberjack_subfix, 2)
+lumberjack_data = DataExtractor(lumberjack_url, lumberjack_subfix, 7)
 lumberjack_models = lumberjack_data.data_ext("div",["product__name"])
-lumberjack_prices = [float("33"+x[:-4].replace(",",".")) for x in lumberjack_data.data_ext("span", ["product__prices-sale"])]
+lumberjack_prices = [float(x[:-4].replace(",",".")) for x in lumberjack_data.data_ext("span", ["product__prices-sale"])]
+
 
 print(lumberjack_prices)
-    
 
-    
+# L'operazione di scraping può essere molto lenta. Con to_txt, inserendo come stringa il nome che vorremo
+# dare al file, verranno prodotti dei file txt con tutti i dati estratti
 
-#     request = requests.get(f"https://www.zalando.it/scarpe-bambini/{'' if x == 1 else '&p='+ str(x)})")
-#     soup_obj= BeautifulSoup(request.text, "html.parser")
-    
-#     brnds = soup_obj.find_all("h3", class_= "FtrEr_ lystZ1 FxZV-M HlZ_Tf ZkIJC- r9BRio qXofat EKabf7 nBq1-s _2MyPg2")
-#     for br in brnds:
+def to_txt(filename: str, file: list):
 
-#         brands.append(br.text)
-    
-#     descs= soup_obj.find_all("h3", class_="sDq_FX lystZ1 FxZV-M HlZ_Tf ZkIJC- r9BRio qXofat EKabf7 nBq1-s _2MyPg2")
-#     for desc in descs:
-        
-#         descriptions.append(desc.text)
-                                          
-#     prcs = soup_obj.find_all(["h3", "span"],  class_= ["sDq_FX lystZ1 FxZV-M HlZ_Tf",
-#                                                       "sDq_FX lystZ1 dgII7d Km7l2y"]
-                                                      
-#                             )
-    
-#     for price in prcs:
-        
-#         if price.text not in  "da Scopri ":
-#             prices.append(price.text)
+     with open(f"{filename}.txt", "w") as file1:
+         for item in file:
+             
+            file1.write(str(item) + "\n")
 
-# print(len(brands))
-# print(len(descriptions))
-# print(len(prices))
-
-
-# with open("b_brands.txt", "w") as file1:
-
-#     for x in brands:
-
-#         file1.write(x + "\n")
-
-# with open("b_descriptions.txt", "w") as file2:
-
-#     for x in descriptions:
-
-#         file2.write(x + "\n")
-
-# with open("b_prices.txt", "w") as file3:
-
-#     for x in prices:
-
-#         file3.write(x + "\n")        
-
+to_txt("melluso_models", melluso_models)
+to_txt("melluso_prices", melluso_prices)
+to_txt("lumberjack_models", lumberjack_models)
+to_txt("lumberjack_prices", lumberjack_prices)
