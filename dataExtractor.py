@@ -11,14 +11,12 @@ from bs4 import BeautifulSoup
 class DataExtractor:
 
     def __init__(self, url: str, subfix: str, pages: int) -> None:
-        
 
         self.url = url
         self.subf= subfix
         self.max_range= pages
         self.pages= []
         self.pages_extractor()
-        
         
     def pages_extractor(self) -> bool:
 
@@ -55,7 +53,6 @@ class DataExtractor:
         print("Operation Failed")
 
         return False  
-
     
 
 melluso_url = "https://www.melluso.com/it/melluso-donna/nuova-collezione.html"
@@ -70,9 +67,6 @@ melluso_prices = melluso_data.data_ext("span", ["price"])
 lumberjack_data = DataExtractor(lumberjack_url, lumberjack_subfix, 7)
 lumberjack_models = lumberjack_data.data_ext("div",["product__name"])
 lumberjack_prices = [float(x[:-4].replace(",",".")) for x in lumberjack_data.data_ext("span", ["product__prices-sale"])]
-
-
-print(lumberjack_prices)
 
 # L'operazione di scraping può essere molto lenta. Con to_txt, inserendo come stringa il nome che vorremo
 # dare al file, verranno prodotti dei file txt con tutti i dati estratti
