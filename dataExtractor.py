@@ -42,9 +42,9 @@ class DataExtractor:
     
     def non_incr_extractor(self, strings) -> list:
 
-
         print(" e mo che faccio??")
         pages = []
+        
         for string in strings:
 
             url = f"{self.url}{string.lower().replace(' ',self.separator)}"
@@ -56,9 +56,11 @@ class DataExtractor:
                 return False
             
             else:
+                
                 pages.append(req)
         
         print("All requests accepted")
+        
         return pages
 
     
