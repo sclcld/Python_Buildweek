@@ -143,13 +143,6 @@ shops_melluso_clean = shops_cleaner(shops_melluso)
 shops_lumb_clean = shops_cleaner(shops_lumb)  
 
 
-
-
-
-
-
-
-
 def melluso_csv_maker():
     
     with open("melluso.csv", "w") as file:
