@@ -60,9 +60,7 @@ class DataExtractor:
         
         print("All requests accepted")
         return pages
-    
-    
-    
+
     
     def data_ext(self, type: str, classes = None) -> list:
         
@@ -94,6 +92,7 @@ class DataExtractor:
 
         return False  
     
+
 def to_txt(filename: str, file: list):
 
         with open(f"{filename}_raw.txt", "w") as file1:
