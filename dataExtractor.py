@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-# Data Extractor è creato per rendere automatiche le operazioni di estrazione dati 
+# Data Extractor è creato per rendere più veloci le operazioni di estrazione dati 
 # da cataloghi web. Le sue funzioni sono molto limitate ma renderà meno macchinose
 # le operazioni con Beautiful Soup. Basterà inserire l'url del catalogo, un suffisso
 # ed un range ed estrarrà le pagine desiderate. Utilizzando il find_all() di BeautifulSoup
