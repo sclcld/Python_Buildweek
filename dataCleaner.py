@@ -1,7 +1,6 @@
 modelli_melluso = ""
 prezzi_melluso = ""
 modelli_lumb= ""
-
 #il file lumberjack prices è già pulito e in formato stringa
 prezzi_lumb_string = ""
 
@@ -49,7 +48,7 @@ def lumb_cleaner() -> list:
 
 # in alcune stringhe "in" viene riportato come "il" 
 
-def melluso_cleaner():
+def melluso_cleaner() -> list:
 
     rows = []
 
