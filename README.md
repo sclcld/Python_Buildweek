@@ -14,6 +14,7 @@ alle pagine.
 Tramite il modulo Extractions, utilizzando DataExtractor e to_txt() vengono generati i file raw da ripulire.
 
 Con il modulo il modulo DataCleaner, dopo un'analisi dei pattern in ogni lista, vengono ottenute le stringhe relative a nome modello, modello dei prodotti Lumberjack e modello, materiale, colore dei prodotti Melluso.
-I valori in entrambe le liste contenenti i prezzi vengono convertiti in float. Con le funzioni melluso_csv_maker() e lumberjack_csv_maker() possono essere creati dei csv con i dati estratti.   
+I valori in entrambe le liste contenenti i prezzi vengono convertiti in float.    
 Tramite la fuzione shops_cleaner(), analizzando i pattern delle stringhe relativa agli shops e l'inserimento di un segnaposto delimitante le varie sezioni, si ottengono nomeshop, indirizzo, località.
+Con le funzioni melluso_csv_maker(), lumberjack_csv_maker(), shops_csv_maker() possono essere creati dei csv con i dati estratti.
 Questo modulo può anche essere importato come modulo esterno e i dati raccolti usati come variabili.
