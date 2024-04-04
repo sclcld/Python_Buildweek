@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-# Data Extractor è creato per rendere più veloci le operazioni di estrazione dati 
+# Data Extractor è creato per rendere automatiche le operazioni di estrazione dati 
 # da cataloghi web. Le sue funzioni sono molto limitate ma renderà meno macchinose
 # le operazioni con Beautiful Soup. Basterà inserire l'url del catalogo, un suffisso
 # ed un range ed estrarrà le pagine desiderate. Utilizzando il find_all() di BeautifulSoup
@@ -14,11 +14,11 @@ class DataExtractor:
         self.url = url
         self.subf= subfix
         self.max_range= pages
-        self.pages= []
-        self.pages_extractor()
+        self.pages= self.pages_extractor()
         
     def pages_extractor(self) -> bool:
 
+        pages = []
         for x in range(1, self.max_range + 1):
             
             incr_url = f"{self.url}{'' if x == 1 else self.subf + str(x)}"
@@ -26,17 +26,16 @@ class DataExtractor:
             
             if "200" not in str(req):
                 print("One or More Requests Not Accepted. Interrupting operation")
-                self.pages = []
-                
+
                 return False
             
             else:
-                self.pages.append(req)
+                pages.append(req)
         
         print("All requests accepted")
-        return True
+        return pages
 
-    def data_ext(self, type: str, classes: list):
+    def data_ext(self, type: str, classes: list) -> list:
         
         strings = []
         for req in self.pages:
@@ -62,13 +61,14 @@ def main():
     lumberjack_url = "https://www.lumberjack.com/it/campaign/woman?category=shoes"
     lumberjack_subfix = "&page="
 
-    melluso_data= DataExtractor(melluso_url, melluso_subfix, 25)
+    melluso_data= DataExtractor(melluso_url, melluso_subfix, 1)
     melluso_models = melluso_data.data_ext("a",["product-item-link"])
     melluso_prices = melluso_data.data_ext("span", ["price"])
 
-    lumberjack_data = DataExtractor(lumberjack_url, lumberjack_subfix, 7)
+    lumberjack_data = DataExtractor(lumberjack_url, lumberjack_subfix, 1)
     lumberjack_models = lumberjack_data.data_ext("div",["product__name"])
     lumberjack_prices = [float(x[:-4].replace(",",".")) for x in lumberjack_data.data_ext("span", ["product__prices-sale"])]
+
 
     # L'operazione di scraping può essere molto lenta. Con to_txt, inserendo come stringa il nome che vorremo
     # dare al file, verranno prodotti dei file txt con tutti i dati estratti
