@@ -103,22 +103,3 @@ def to_txt(filename: str, file: list):
                 file1.write(str(item) + "\n")
 
 
-    # melluso_url = "https://www.melluso.com/it/melluso-donna/nuova-collezione.html"
-    # melluso_separator = '?p='
-    # lumberjack_url = "https://www.lumberjack.com/it/campaign/woman?category=shoes"
-    # lumberjack_separator = "&page="
-
-    # melluso_data= DataExtractor(melluso_url, melluso_separator, 1)
-    # melluso_models = melluso_data.data_ext("a",["product-item-link"])
-    # melluso_prices = melluso_data.data_ext("span", ["price"])
-
-    # lumberjack_data = DataExtractor(lumberjack_url, lumberjack_separator, 1)
-    # lumberjack_models = lumberjack_data.data_ext("div",["product__name"])
-    # lumberjack_prices = [float(x[:-4].replace(",",".")) for x in lumberjack_data.data_ext("span", ["product__prices-sale"])]
-
-
-    # L'operazione di scraping può essere molto lenta. Con to_txt, inserendo come stringa il nome che vorremo
-    # dare al file, verranno prodotti dei file txt con tutti i dati estratti
-
-    
-
